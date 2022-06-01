@@ -65,9 +65,4 @@ public class Employee {
     public int hashCode() {
         return Objects.hash();
     }
-
-    @Override
-    public String toString() {
-        return "Фамилия:" + firstName + ";" + "Имя:" + lastName + "Отдел: " + department + "Зарплата: " + salary;
-    }
 }

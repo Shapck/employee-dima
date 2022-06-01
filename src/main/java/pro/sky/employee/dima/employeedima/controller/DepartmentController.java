@@ -34,8 +34,8 @@ public class DepartmentController {
         return departmentServices.findAllByDepartment(department);
     }
 
-    @GetMapping(path = "/max-salary")
-    public Map<Integer,List<Employee>>findMinSalary(@RequestParam Integer department){
+    @GetMapping(path = "/find-all")
+    public Map<Integer,List<Employee>>findAll(@RequestParam Integer department){
         return departmentServices.findAllGroupByDepartment();
     }
 

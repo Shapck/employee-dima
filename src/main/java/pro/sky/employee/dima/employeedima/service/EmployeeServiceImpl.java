@@ -1,9 +1,11 @@
 package pro.sky.employee.dima.employeedima.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.employee.dima.employeedima.employee.Employee;
 import pro.sky.employee.dima.employeedima.exeptions.EmployeeAlreadyExistsException;
 import pro.sky.employee.dima.employeedima.exeptions.EmployeeNotFoundException;
+
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,10 +21,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, int department, int salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (StringUtils.isAllEmpty(firstName,lastName)
+                || StringUtils.containsIgnoreCase(firstName,lastName)
+                || StringUtils.length(firstName) < 2) {
+            throw new EmployeeAlreadyExistsException();
+        }
+
+        Employee employee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), salary, department);
         if (this.employeeMap.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyExistsException();
         }
+
         employeeMap.put(employee.getFullName(),employee);
 
         return employee;
